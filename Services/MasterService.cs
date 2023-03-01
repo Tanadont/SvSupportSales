@@ -3,20 +3,21 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.OpenApi.Services;
 using SvSupportSales.Commons;
 using SvSupportSales.Entities;
+using SvSupportSales.Models;
 using SvSupportSales.Repositories;
 
 namespace SvSupportSales.Services
 {
     public interface IMasterService
     {
-        public ApiResponse DropDownSalesNameAutoComplete(string salesName, int limit);
-        public ApiResponse DropDownBranchNameAutoComplete(string branchName, int limit);
+        public ApiResponse SalesNameAutoComplete(AutoCompleteModel filter);
+        public ApiResponse BranchNameAutoComplete(AutoCompleteModel filter);
         public ApiResponse DropDownRegisterType();
-        public ApiResponse DropDownSalesStructureTeamNameAutoComplete(string salesStructureTeamName, int limit);
-        public ApiResponse DropDownPositionAutoComplete(string positionName, int limit);
-        public ApiResponse DropDownDocumentStatusAutoComplete(string documentStatusName, int limit);
+        public ApiResponse SalesStructureTeamNameAutoComplete(AutoCompleteModel filter);
+        public ApiResponse PositionAutoComplete(AutoCompleteModel filter);
+        public ApiResponse DropDownDocumentStatus(AutoCompleteModel filter);
         public ApiResponse DropDownSaleStatus();
-        public ApiResponse DropDownSupervisorNameAutoComplete(string supervisorName, int limit);
+        public ApiResponse SupervisorNameAutoComplete(AutoCompleteModel filter);
     }
     public class MasterService : IMasterService
     {
@@ -27,10 +28,10 @@ namespace SvSupportSales.Services
             this.masterRepository = masterRepository;
         }
 
-        public ApiResponse DropDownBranchNameAutoComplete(string branchName, int limit)
+        public ApiResponse BranchNameAutoComplete(AutoCompleteModel filter)
         {
             List<DropDownResult> resultList = new List<DropDownResult>();
-            List<MasBranch>? dataList = masterRepository.FindMasBranch(branchName, limit);
+            List<MasBranch>? dataList = masterRepository.FindMasBranch(filter.Search, filter.Limit);
             if (dataList != null && dataList.Count > 0)
             {
                 foreach (MasBranch data in dataList)
@@ -44,10 +45,10 @@ namespace SvSupportSales.Services
             return new ApiResponse(StatusCodes.Status200OK, null, resultList);
         }
 
-        public ApiResponse DropDownDocumentStatusAutoComplete(string documentStatusName, int limit)
+        public ApiResponse DropDownDocumentStatus(AutoCompleteModel filter)
         {
             List<DropDownResult> resultList = new List<DropDownResult>();
-            List<MasDocumentStatus>? dataList = masterRepository.FindMasDocumentStatus(documentStatusName, limit);
+            List<MasDocumentStatus>? dataList = masterRepository.FindMasDocumentStatus(filter.Search, filter.Limit);
             if (dataList != null && dataList.Count > 0)
             {
                 foreach (MasDocumentStatus data in dataList)
@@ -61,10 +62,10 @@ namespace SvSupportSales.Services
             return new ApiResponse(StatusCodes.Status200OK, null, resultList);
         }
 
-        public ApiResponse DropDownPositionAutoComplete(string positionName, int limit)
+        public ApiResponse PositionAutoComplete(AutoCompleteModel filter)
         {
             List<DropDownResult> resultList = new List<DropDownResult>();
-            List<MasSalesPosition>? dataList = masterRepository.FindMasSalesPosition(positionName, limit);
+            List<MasSalesPosition>? dataList = masterRepository.FindMasSalesPosition(filter.Search, filter.Limit);
             if (dataList != null && dataList.Count > 0)
             {
                 foreach (MasSalesPosition data in dataList)
@@ -88,10 +89,10 @@ namespace SvSupportSales.Services
             return new ApiResponse(StatusCodes.Status200OK, null, resultList);
         }
 
-        public ApiResponse DropDownSalesNameAutoComplete(string salesName, int limit)
+        public ApiResponse SalesNameAutoComplete(AutoCompleteModel filter)
         {
             List<DropDownResult> resultList = new List<DropDownResult>();
-            List<MasSalesStructure>? dataList = masterRepository.FindMasSalesStructure(salesName, false, limit);
+            List<MasSalesStructure>? dataList = masterRepository.FindMasSalesStructure(filter.Search, false, filter.Limit);
             if(dataList != null && dataList.Count> 0)
             {
                 foreach (MasSalesStructure data in dataList)
@@ -105,10 +106,10 @@ namespace SvSupportSales.Services
             return new ApiResponse(StatusCodes.Status200OK, null, resultList);
         }
 
-        public ApiResponse DropDownSalesStructureTeamNameAutoComplete(string salesStructureTeamName, int limit)
+        public ApiResponse SalesStructureTeamNameAutoComplete(AutoCompleteModel filter)
         {
             List<DropDownResult> resultList = new List<DropDownResult>();
-            List<MasSalesTeam>? dataList = masterRepository.FindMasSalesTeam(salesStructureTeamName, limit);
+            List<MasSalesTeam>? dataList = masterRepository.FindMasSalesTeam(filter.Search, filter.Limit);
             if (dataList != null && dataList.Count > 0)
             {  
                 foreach (MasSalesTeam data in dataList)
@@ -132,10 +133,10 @@ namespace SvSupportSales.Services
             return new ApiResponse(StatusCodes.Status200OK, null, resultList);
         }
 
-        public ApiResponse DropDownSupervisorNameAutoComplete(string supervisorName, int limit)
+        public ApiResponse SupervisorNameAutoComplete(AutoCompleteModel filter)
         {
             List<DropDownResult> resultList = new List<DropDownResult>();
-            List<MasSalesStructure>? dataList = masterRepository.FindMasSalesStructure(supervisorName, true, limit);
+            List<MasSalesStructure>? dataList = masterRepository.FindMasSalesStructure(filter.Search, true, filter.Limit);
             if (dataList != null && dataList.Count > 0)
             {
                 foreach (MasSalesStructure data in dataList)

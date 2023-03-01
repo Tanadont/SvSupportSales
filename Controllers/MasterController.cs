@@ -21,52 +21,76 @@ namespace SvSupportSales.Controllers
             this.masterService = masterService;
         }
 
-        [HttpGet("sales-name-autocomplete")]
-        public IActionResult DropDownSalesNameAutoComplete(string salesName, int limit)
+        /// <summary>
+        /// AutoComplete 
+        /// </summary>
+        [HttpGet("sales-name")]
+        public IActionResult SalesName([FromQuery] AutoCompleteModel filter)
         {
-            return Ok(masterService.DropDownSalesNameAutoComplete(salesName, limit));
+            return Ok(masterService.SalesNameAutoComplete(filter));
         }
 
-        [HttpGet("branch-name-autocomplete")]
-        public IActionResult DropDownBranchNameAutoComplete(string branchName, int limit)
+        /// <summary>
+        /// AutoComplete
+        /// </summary>
+        [HttpGet("branch-name")]
+        public IActionResult BranchName([FromQuery] AutoCompleteModel filter)
         {
-            return Ok(masterService.DropDownBranchNameAutoComplete(branchName, limit));
+            return Ok(masterService.BranchNameAutoComplete(filter));
         }
 
-        [HttpGet("register-type-dropdown")]
-        public IActionResult DropDownRegisterType()
+        /// <summary>
+        /// DropDown
+        /// </summary>
+        [HttpGet("register-type")]
+        public IActionResult RegisterType()
         {
             return Ok(masterService.DropDownRegisterType());
         }
 
-        [HttpGet("structure-team-name-autocomplete")]
-        public IActionResult DropDownSalesStructureTeamNameAutoComplete(string salesStructureTeamName, int limit)
+        /// <summary>
+        /// AutoComplete 
+        /// </summary>
+        [HttpGet("structure-team-name")]
+        public IActionResult SalesStructureTeamName([FromQuery] AutoCompleteModel filter)
         {
-            return Ok(masterService.DropDownSalesStructureTeamNameAutoComplete(salesStructureTeamName, limit));
+            return Ok(masterService.SalesStructureTeamNameAutoComplete(filter));
         }
 
-        [HttpGet("position-name-autocomplete")]
-        public IActionResult DropDownPositionAutoComplete(string positionName, int limit)
+        /// <summary>
+        /// DropDown
+        /// </summary>
+        [HttpGet("position-name")]
+        public IActionResult DropDownPosition([FromQuery] AutoCompleteModel filter)
         {
-            return Ok(masterService.DropDownPositionAutoComplete(positionName, limit));
+            return Ok(masterService.PositionAutoComplete(filter));
         }
 
-        [HttpGet("document-status-name-autocomplete")]
-        public IActionResult DropDownDocumentStatusAutoComplete(string documentStatusName, int limit)
+        /// <summary>
+        /// AutoComplete 
+        /// </summary>
+        [HttpGet("document-status-name")]
+        public IActionResult DocumentStatus([FromQuery] AutoCompleteModel filter)
         {
-            return Ok(masterService.DropDownDocumentStatusAutoComplete(documentStatusName, limit));
+            return Ok(masterService.DropDownDocumentStatus(filter));
         }
 
-        [HttpGet("sale-status-dropdown")]
-        public IActionResult DropDownSaleStatus()
+        /// <summary>
+        /// DropDown
+        /// </summary>
+        [HttpGet("sale-status")]
+        public IActionResult SaleStatus()
         {
             return Ok(masterService.DropDownSaleStatus());
         }
 
-        [HttpGet("supervisor-name-autocomplete")]
-        public IActionResult DropDownSupervisorNameAutoComplete(string supervisorName, int limit)
+        /// <summary>
+        /// AutoComplete 
+        /// </summary>
+        [HttpGet("supervisor-name")]
+        public IActionResult SupervisorName([FromQuery] AutoCompleteModel filter)
         {
-            return Ok(masterService.DropDownSupervisorNameAutoComplete(supervisorName, limit));
+            return Ok(masterService.SupervisorNameAutoComplete(filter));
         }
 
     }

@@ -7,10 +7,9 @@ using Swashbuckle.AspNetCore.Annotations;
 
 namespace SvSupportSales.Models
 {
-    public class QuerySalesProfile
+    //แยก skip limit textSearch 
+    public class QuerySalesProfile : Pagination
     {
-        public string? textSearch { get; set; }
-
         public string? CitizenId { get; set; }
 
         public List<int>? BranchIds { get; set; }
@@ -31,12 +30,9 @@ namespace SvSupportSales.Models
 
         public DateTime? DocumentEndDate { get; set; }
 
-        public int Skip { get; set; } = 0;
-
-        public int Limit { get; set; } = 50;
-
+        /*
         [JsonConverter(typeof(JsonStringEnumConverter))]
-        public enum Sort
+        public enum Order
         {
             [EnumMember(Value = "documentNo")]
             documentNo,
@@ -50,18 +46,10 @@ namespace SvSupportSales.Models
             saleStatus,
             [EnumMember(Value = "updatedDate")]
             updatedDate,
-        }
-        public Sort SortBy { get; set; } = Sort.updatedDate;
-
-
-        [JsonConverter(typeof(JsonStringEnumConverter))]
-        public enum Order 
-        {
-            [EnumMember(Value = "ASC")]
-            ASC,
-            [EnumMember(Value = "DESC")]
-            DESC
-        }
-        public Order OrderBy { get; set; } = Order.DESC;
+        }*/
+        /// <summary>
+        /// orderBy >> documentNo,salesName,documentDate,documentStatusCode,saleStatus,updatedDate
+        /// </summary>
+        public new string? OrderBy { get; set; }
     }
 }

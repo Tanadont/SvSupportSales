@@ -11,6 +11,8 @@ namespace SvSupportSales.Repositories
     public interface ISalesProfileRepository
     {
         List<TransSaleRegister>? SearchTransSaleRegister(QuerySalesProfile query);
+
+        public TransSaleRegister? View(int id);
     }
 
     public class SalesProfileRepository : ISalesProfileRepository
@@ -26,13 +28,13 @@ namespace SvSupportSales.Repositories
         {
             StringBuilder queryCondition = new StringBuilder();
             queryCondition.Append("SELECT * FROM trans_sale_register as tsr WHERE 1 = 1 ");
-            if(query.textSearch!= null && query.textSearch.Trim().Length > 0)
+            if(query.Search != null && query.Search.Trim().Length > 0)
             {
                 queryCondition.Append(
-                    $" AND ( concat(UPPER(tsr.prefix),' ',UPPER(tsr.firstName),' ',UPPER(tsr.lastName)) LIKE '%{query.textSearch.ToUpper()}%' " +
-                    $" OR tsr.telephone LIKE '%{query.textSearch}%' " +
-                    $" OR tsr.document_no LIKE '%{query.textSearch}%' " +
-                    $" OR tsr.citizenId LIKE '%{query.textSearch}%' ) ");
+                    $" AND ( concat(UPPER(tsr.prefix),' ',UPPER(tsr.firstName),' ',UPPER(tsr.lastName)) LIKE '%{query.Search.ToUpper()}%' " +
+                    $" OR tsr.telephone LIKE '%{query.Search}%' " +
+                    $" OR tsr.document_no LIKE '%{query.Search}%' " +
+                    $" OR tsr.citizenId LIKE '%{query.Search}%' ) ");
             }
             if (query.CitizenId != null)
             {
@@ -74,33 +76,38 @@ namespace SvSupportSales.Repositories
             {
                 queryCondition.Append($"AND tsr.documentdate <= {query.DocumentEndDate} ");
             }
-            
+            //ทำเป็น list sortBy
             //ทำ sort condition
-            string sortString = "tsr.updateddate";
-            switch (query.SortBy.ToString())
+            string orderString = "tsr.updateddate";
+            switch (query.OrderBy)
             {
                 case "documentNo":
-                    sortString = "tsr.documentno";
+                    orderString = "tsr.documentno";
                     break;
                 case "salesName":
-                    sortString = "concat(tsr.prefix,' ',tsr.firstName,' ',tsr.lastName)";
+                    orderString = "concat(tsr.prefix,' ',tsr.firstName,' ',tsr.lastName)";
                     break;
                 case "documentDate":
-                    sortString = "tsr.documentdate";
+                    orderString = "tsr.documentdate";
                     break;
                 case "documentStatusCode":
-                    sortString = "tsr.documentstatuscode";
+                    orderString = "tsr.documentstatuscode";
                     break;
                 case "saleStatus":
-                    sortString = "tsr.salestatus";
+                    orderString = "tsr.salestatus";
                     break;
                 case "updatedDate":
-                    sortString = "tsr.updateddate";
+                    orderString = "tsr.updateddate";
                     break;
             }
-            queryCondition.AppendFormat("ORDER BY {0} {1}", sortString, query.OrderBy);
+            queryCondition.AppendFormat("ORDER BY {0} {1}", orderString, query.SortBy);
 
             return context.TransSaleRegisters.FromSqlRaw(queryCondition.ToString()).ToList(); ;
+        }
+
+        public TransSaleRegister? View (int id)
+        {
+            return context.TransSaleRegisters.Find(id);
         }
     }
 }

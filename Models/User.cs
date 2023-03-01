@@ -1,14 +1,17 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Microsoft.Extensions.Localization;
+using SvSupportSales;
 
 namespace SvSupportSales.Models
 {
-    public class User 
+    public class User
     {
         public int? UserId { get; set; }
-        [Required(ErrorMessage = "{0} field is required.")]
+        [Required(ErrorMessage = "Required")]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long maximum {1}.", MinimumLength = 1)]
         [Display(Name = "Position")]
         public string? Position { get; set; }
+        //[Required(ErrorMessageResourceType = typeof(SvSupportSales.Resources.Resource), ErrorMessageResourceName = "hello")]
         public string? Prefix { get; set; }
 
         public string? FirstName { get; set; }

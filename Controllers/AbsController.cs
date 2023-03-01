@@ -4,16 +4,17 @@ using SvSupportSales.Commons;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Amazon.Auth.AccessControlPolicy;
 using Microsoft.Extensions.Localization;
+using System.Diagnostics;
 
 namespace SvSupportSales.Controllers
 {
     
     public class AbsController : ControllerBase
     {
-        private readonly IStringLocalizer<Resource> localizer;
+        //private readonly IStringLocalizer<Resource> localizer;
         [ApiExplorerSettings(IgnoreApi = true)]
         public ApiResponse BadRequestResponse(ModelStateDictionary.ValueEnumerable modelState) {
-            List<ApiMessage> messages = new List<ApiMessage>();            
+            List<ApiMessage> messages = new List<ApiMessage>();
             foreach (var value in modelState)
             {
                 foreach (var error in value.Errors)

@@ -1,4 +1,5 @@
-﻿using static System.Runtime.InteropServices.JavaScript.JSType;
+﻿using System.Runtime.InteropServices;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace SvSupportSales.Commons
 {
@@ -25,5 +26,13 @@ namespace SvSupportSales.Commons
             Status = status;
             Messages = messages;
         }
+    }
+
+    public class ApiResponseWithPage : ApiResponse
+    {
+        public int? CurrentPage { get; set; }
+        public int? TotalPage { get; set; }
+        public int? TotalRecord { get; set; }
+        public int? PageSize { get; set; }
     }
 }

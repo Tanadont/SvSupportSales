@@ -1,4 +1,5 @@
 ﻿
+using System.Diagnostics;
 using System.Resources;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
@@ -15,9 +16,9 @@ namespace SvSupportSales.Controllers
     public class UserController : AbsController
     {
         private readonly IUmService umService;
-        private readonly IStringLocalizer<Resource> localizer;
+        private readonly IStringLocalizer<UserController> localizer;
 
-        public UserController(IStringLocalizer<Resource> localizer, IUmService umService)
+        public UserController(IStringLocalizer<UserController> localizer, IUmService umService)
         {
             this.umService = umService;
             this.localizer = localizer;
@@ -32,16 +33,16 @@ namespace SvSupportSales.Controllers
         }
 
         [HttpPost("v1/save")]
-        public IActionResult createUser()
+        public IActionResult createUser([FromBody]User user, [FromHeader(Name = "Accept-Language")] string lang)
         {
-            string localizedString = localizer["test"].Value;
-            Console.WriteLine(localizer["test"]);
-            /*
-            bool isvalid = TryValidateModel(data);
+            string localizedString = localizer["hello"].Value;
+            Debug.WriteLine("-------"+localizer["hello"].Value);
+            
+            bool isvalid = TryValidateModel(user);
             if (!isvalid)
             {
                 return Ok(BadRequestResponse(ModelState.Values));                
-            }*/
+            }
             return Ok();
         }
     }   

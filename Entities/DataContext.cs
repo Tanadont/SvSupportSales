@@ -27,6 +27,8 @@ public partial class DataContext : DbContext
 
     public virtual DbSet<TransSaleRegister> TransSaleRegisters { get; set; }
 
+    public virtual DbSet<SearchSalesProfile> SearchSalesProfiles { get; set; }
+
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -438,8 +440,9 @@ public partial class DataContext : DbContext
                 .HasColumnType("timestamp without time zone")
                 .HasColumnName("verrifydate");
         });
+        modelBuilder.Entity<SearchSalesProfile>(entity => entity.HasNoKey());
 
-        OnModelCreatingPartial(modelBuilder);
+            OnModelCreatingPartial(modelBuilder);
     }
 
     partial void OnModelCreatingPartial(ModelBuilder modelBuilder);

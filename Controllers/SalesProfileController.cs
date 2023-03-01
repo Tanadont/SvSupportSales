@@ -18,10 +18,13 @@ namespace SvSupportSales.Controllers
             this.salesProfileService = salesProfileService;
         }
 
+        /// <summary>
+        /// Search Sales Profiles
+        /// </summary>
         [HttpGet("sales-profiles")]
         public IActionResult Search([FromQuery] QuerySalesProfile query)
         {
-            return Ok(salesProfileService.search(query));
+            return Ok(salesProfileService.Search(query));
         }
 
     }

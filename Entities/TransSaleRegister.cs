@@ -32,7 +32,7 @@ public partial class TransSaleRegister
 
     public string? Documentstatuscode { get; set; }
 
-    public DateTime? Documentdate { get; set; }
+    public DateTime? Documentdate { get; set; } 
 
     public int? Registertype { get; set; }
 

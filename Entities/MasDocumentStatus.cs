@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SvSupportSales.Entities;
 
@@ -22,4 +23,7 @@ public partial class MasDocumentStatus
     public DateTime? Updateddate { get; set; }
 
     public string? Updatedby { get; set; }
+
+    [NotMapped]
+    public string getId { get; set; }
 }

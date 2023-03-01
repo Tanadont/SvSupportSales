@@ -2,7 +2,7 @@
 {
     public class AutoCompleteModel
     {
-        public string? TextSearch { get; set; }
+        public string? Search { get; set; }
 
         public int? Limit { get; set; }
     }
